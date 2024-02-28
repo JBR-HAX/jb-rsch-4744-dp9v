@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PathCalculator {
+public class MovesCalculator {
     public List<Move> calculatePath(List<Coordinates> coordinates) {
         if (coordinates.size() <= 1) {
             return List.of();

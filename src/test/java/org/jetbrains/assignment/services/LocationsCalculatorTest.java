@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class CoordinatesCalculatorTest {
+class LocationsCalculatorTest {
 
     @Test
     void calculateLocations() {
@@ -21,7 +20,7 @@ class CoordinatesCalculatorTest {
                 new Move(Directions.SOUTH, 5),
                 new Move(Directions.WEST, 2)
         );
-        var result = new CoordinatesCalculator().calculateLocations(input);
+        var result = new LocationsCalculator().calculateLocations(input);
         assertThat(result).containsExactly(
                 new Coordinates(0, 0),
                 new Coordinates(1, 0),

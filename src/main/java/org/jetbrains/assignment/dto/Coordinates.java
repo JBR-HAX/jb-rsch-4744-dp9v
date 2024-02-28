@@ -11,4 +11,12 @@ public record Coordinates(
     public Coordinates moveY(int y) {
         return new Coordinates(this.x, this.y + y);
     }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

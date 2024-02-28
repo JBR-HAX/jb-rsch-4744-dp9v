@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class PathCalculatorTest {
+class MovesCalculatorTest {
 
     @Test
     void calculate() {
@@ -21,7 +21,7 @@ class PathCalculatorTest {
                 new Coordinates(0, 0)
         );
 
-        var response = new PathCalculator().calculatePath(input);
+        var response = new MovesCalculator().calculatePath(input);
 
         assertThat(response).containsExactly(
                 new Move(Directions.EAST, 1),

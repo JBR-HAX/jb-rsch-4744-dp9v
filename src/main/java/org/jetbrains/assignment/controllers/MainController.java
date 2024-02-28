@@ -2,8 +2,10 @@ package org.jetbrains.assignment.controllers;
 
 import org.jetbrains.assignment.dto.Coordinates;
 import org.jetbrains.assignment.dto.Move;
-import org.jetbrains.assignment.services.CoordinatesCalculator;
-import org.jetbrains.assignment.services.PathCalculator;
+import org.jetbrains.assignment.models.ReqResp;
+import org.jetbrains.assignment.repo.ReqRespRepo;
+import org.jetbrains.assignment.services.LocationsCalculator;
+import org.jetbrains.assignment.services.MovesCalculator;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,25 +17,33 @@ import java.util.List;
 @RestController
 public class MainController {
 
-    public final CoordinatesCalculator coordinatesCalculator;
-    public final PathCalculator pathCalculator;
+    public final LocationsCalculator coordinatesCalculator;
+    public final MovesCalculator movesCalculator;
+
+    public final ReqRespRepo reqRespRepo;
 
     public MainController(
-            CoordinatesCalculator coordinatesCalculator,
-            PathCalculator pathCalculator
+            LocationsCalculator coordinatesCalculator,
+            MovesCalculator movesCalculator,
+            ReqRespRepo reqRespRepo
     ) {
         this.coordinatesCalculator = coordinatesCalculator;
-        this.pathCalculator = pathCalculator;
+        this.movesCalculator = movesCalculator;
+        this.reqRespRepo = reqRespRepo;
     }
 
     @PostMapping("/locations")
     public List<Coordinates> locations(@RequestBody List<Move> moves) {
-        return coordinatesCalculator.calculateLocations(moves);
+        var response = coordinatesCalculator.calculateLocations(moves);
+        reqRespRepo.save(new ReqResp(moves.toString(), response.toString(), "/locations"));
+        return response;
     }
 
 
     @PostMapping("/moves")
     public List<Move> moves(@RequestBody List<Coordinates> coordinates) {
-        return pathCalculator.calculatePath(coordinates);
+        var response = movesCalculator.calculatePath(coordinates);
+        reqRespRepo.save(new ReqResp(coordinates.toString(), response.toString(), "/moves"));
+        return response;
     }
 }

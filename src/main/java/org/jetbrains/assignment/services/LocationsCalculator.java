@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CoordinatesCalculator {
+public class LocationsCalculator {
+
+
 
     public List<Coordinates> calculateLocations(List<Move> moves) {
         var currentPoint = new Coordinates(0, 0);
